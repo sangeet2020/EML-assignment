@@ -1,0 +1,82 @@
+\documentclass{article}[a4paper]
+\usepackage[a4paper, left=2.5cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{mathtools}% http://ctan.org/pkg/mathtools
+\usepackage{caption}
+\captionsetup{width=.75\textwidth}
+\usepackage[usestackEOL]{stackengine}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows,positioning,fit}
+\usetikzlibrary{shapes,calc,arrows}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{subfiles}
+\usepackage{blindtext}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{physics} % for 'pdv' macro
+\usepackage{qtree}
+\usepackage{stmaryrd}
+\usepackage{multicol}
+\usepackage{xparse}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{neuralnetwork}
+\usepackage{pgfplots}
+\usepackage{sidecap}
+ 
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+
+\pgfplotsset{compat=1.16}
+
+% Syntax: \colorboxed[<color model>]{<color specification>}{<math formula>}
+\newcommand*{\colorboxed}{}
+\def\colorboxed#1#{%
+  \colorboxedAux{#1}%
+}
+\newcommand*{\colorboxedAux}[3]{%
+  % #1: optional argument for color model
+  % #2: color specification
+  % #3: formula
+  \begingroup
+    \colorlet{cb@saved}{.}%
+    \color#1{#2}%
+    \boxed{%
+      \color{cb@saved}%
+      #3%
+    }%
+  \endgroup
+}
+
+\def\XXX#1{\textcolor{red}{XXX #1}}
+
+\NewDocumentCommand{\codeword}{v}{%
+\texttt{\textcolor{blue}{#1}}%
+}
+\newcommand\Mycomb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+\def\XXX#1{\textcolor{red}{XXX #1}}
+\newcommand{\vect}[1]{\boldsymbol{\textcolor{blue}{#1}}}
+
+\title{\textbf{Elements of Machine Learning}\\
+Assigment 1 - Problem 5
+}
+\author{ Sangeet Sagar(7009050), Philipp Schuhmacher(7010127)\\
+        \texttt{\{sasa00001,phsc00003\}@stud.uni-saarland.de}
+}
+% \pgfplotsset{compat=1.17}
+% \parindent 0in
+% \parskip 0em
+\begin{document}
+\maketitle
+
+
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+\end{document}

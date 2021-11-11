@@ -1,0 +1,130 @@
+\documentclass{article}[a4paper]
+\usepackage[a4paper, left=2.5cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{mathtools}% http://ctan.org/pkg/mathtools
+\usepackage{caption}
+\captionsetup{width=.75\textwidth}
+\usepackage[usestackEOL]{stackengine}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows,positioning,fit}
+\usetikzlibrary{shapes,calc,arrows}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{subfiles}
+\usepackage{blindtext}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{physics} % for 'pdv' macro
+\usepackage{qtree}
+\usepackage{stmaryrd}
+\usepackage{multicol}
+\usepackage{xparse}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{neuralnetwork}
+\usepackage{pgfplots}
+\usepackage{sidecap}
+ 
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+
+\pgfplotsset{compat=1.16}
+
+% Syntax: \colorboxed[<color model>]{<color specification>}{<math formula>}
+\newcommand*{\colorboxed}{}
+\def\colorboxed#1#{%
+  \colorboxedAux{#1}%
+}
+\newcommand*{\colorboxedAux}[3]{%
+  % #1: optional argument for color model
+  % #2: color specification
+  % #3: formula
+  \begingroup
+    \colorlet{cb@saved}{.}%
+    \color#1{#2}%
+    \boxed{%
+      \color{cb@saved}%
+      #3%
+    }%
+  \endgroup
+}
+
+\def\XXX#1{\textcolor{red}{XXX #1}}
+
+\NewDocumentCommand{\codeword}{v}{%
+\texttt{\textcolor{blue}{#1}}%
+}
+\newcommand\Mycomb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+\def\XXX#1{\textcolor{red}{XXX #1}}
+\newcommand{\vect}[1]{\boldsymbol{\textcolor{blue}{#1}}}
+
+\title{\textbf{Elements of Machine Learning}\\
+Assigment 1 - Problem 2
+}
+\author{ Sangeet Sagar(7009050), Philipp Schuhmacher(7010127)\\
+        \texttt{\{sasa00001,phsc00003\}@stud.uni-saarland.de}
+}
+% \pgfplotsset{compat=1.17}
+% \parindent 0in
+% \parskip 0em
+\begin{document}
+\maketitle
+\section*{2 Bias-variance trade-off}
+\textbf{Q.} Prove that the expected test mean square error (MSE), for a given value $x_0$ , can always be decomposed into the sum of three fundamental quantities: the variance of $\hat{f}(x_0)$, the squared bias of $\hat{f}(x_0)$ and the variance of the error terms $\epsilon$. Please note that you should prove both qualities (both equals relation), enlist all assumptions and define all parameters and variables.
+\\~\\
+\textbf{Solution}\\ 
+We have
+\begin{itemize}
+    \item $y_0$: Given $n$ training data points $i=1,2,\hdots,n$, it holds $y=f(x) + \epsilon$, where $\epsilon$ is a noise or error term.
+    \item $f(x_0)$: true function
+    \item $\hat{f}(x_0)$: estimated function
+\end{itemize}
+
+\begin{flalign*}
+    \mathbb{E}\left[(y_0 - \hat{f}(x_0))\right]^2 &= \mathbb{E}\left[\left(f(x_0) + \epsilon - \hat{f}(x_0)\right)^2\right]\\
+                     &= \mathbb{E}\left[\left(f(x_0) + \epsilon - \hat{f}(x_0) + \mathbb{E}[\hat{f}(x_0)] - \mathbb{E}[\hat{f}(x_0)]\right)^2\right]\\
+                     &= \mathbb{E}\left[\left( \left(f(x_0)  - \mathbb{E}[\hat{f}(x_0)] \right) + \epsilon + \left(\mathbb{E}[\hat{f}(x_0)] - \hat{f}(x_0)\right)  \right)^2\right]\\
+                     &= \mathbb{E}[(f(x_0)-\mathbb{E}[\hat{f}(x_0)] )^2] + \mathbb{E}[\epsilon^2]  + \mathbb{E}[(\mathbb{E}[\hat{f}(x_0)] - \hat{f}(x_0))^2]\\
+                      &+ 2\mathbb{E}[(f(x_0)-\mathbb{E}[\hat{f}(x_0))\epsilon]\\
+                      &+ 2\mathbb{E}[(\mathbb{E}[\hat{f}(x_0)] - \hat{f}(x_0))\epsilon]\\
+                      &+ 2\mathbb{E}[(\mathbb{E}[\hat{f}(x_0)] - \hat{f}(x_0))(f(x_0)-\mathbb{E}[\hat{f}(x_0)])]\\
+\end{flalign*}
+
+Since $f$ is independent $\mathbb{E}[f(x_0)] = f$ and $\mathbb{E}[(f(x_0) - \mathbb{E}[\hat{f}(x_0)])] = (f(x_0) - \mathbb{E}[\hat{f}(x_0)])$ since the quantity inside is difference between constant ($f(x_0)$) (because it is a given data) and average prediction ($\mathbb{E}[\hat{f}(x_0)]$). Also, $\epsilon$ is error thus $\mathbb{E}[\epsilon] = 0$
+
+\begin{align*}
+    \mathbb{E}\left[(y_0 - \hat{f}(x_0))\right]^2 &= (f(x_0)-\mathbb{E}[\hat{f}(x_0)] )^2 + \mathbb{E}[\epsilon^2]  + \mathbb{E}[(\mathbb{E}[\hat{f}(x_0)] - \hat{f}(x_0))^2]\\
+                      &+ \underbrace{2(f(x_0)-\mathbb{E}[\hat{f}(x_0))\mathbb{E}[\epsilon]}_{0 (\text{As }\mathbb{E}[\epsilon]=0)} \\
+                      &+ \underbrace{2\mathbb{E}(\mathbb{E}[\hat{f}(x_0)] - \hat{f}(x_0))\mathbb{E}[\epsilon]}_{0 (\text{As }\mathbb{E}[\epsilon]=0)} \\
+                      &+ 2\mathbb{E}[(\mathbb{E}[\hat{f}(x_0)] - \hat{f}(x_0)](f(x_0)-\mathbb{E}[\hat{f}(x_0)]) \\
+    \mathbb{E}\left[(y_0 - \hat{f}(x_0))\right]^2 &= (f(x_0)-\mathbb{E}[\hat{f}(x_0)] )^2 + \mathbb{E}[\epsilon^2]  + \mathbb{E}[(\mathbb{E}[\hat{f}(x_0)] - \hat{f}(x_0))^2]\\
+                      &+ 2\mathbb{E}[\mathbb{E}[\hat{f}(x_0)] - \hat{f}(x_0)](f(x_0)-\mathbb{E}[\hat{f}(x_0)])\\
+    \mathbb{E}\left[(y_0 - \hat{f}(x_0))\right]^2 &= (f(x_0)-\mathbb{E}[\hat{f}(x_0)] )^2 + \mathbb{E}[\epsilon^2]  + \mathbb{E}[(\mathbb{E}[\hat{f}(x_0)] - \hat{f}(x_0))^2]\\
+                      &+ 2\left(\mathbb{E}[\mathbb{E}[\hat{f}(x_0)]] - \mathbb{E}[\hat{f}(x_0)]\right)(f(x_0)-\mathbb{E}[\hat{f}(x_0)])\\
+    \mathbb{E}\left[(y_0 - \hat{f}(x_0))\right]^2 &= (f(x_0)-\mathbb{E}[\hat{f}(x_0)] )^2 + \mathbb{E}[\epsilon^2]  + \mathbb{E}[(\mathbb{E}[\hat{f}(x_0)] - \hat{f}(x_0))^2]\\
+                      &+ \underbrace{2(\mathbb{E}[\hat{f}(x_0)] - \mathbb{E}[\hat{f}(x_0)])(f(x_0)-\mathbb{E}[\hat{f}(x_0)])}_{0}\\
+    \mathbb{E}\left[(y_0 - \hat{f}(x_0))\right]^2 &= (f(x_0)-\mathbb{E}[\hat{f}(x_0)] )^2 + \mathbb{E}[\epsilon^2]  + \mathbb{E}[(\mathbb{E}[\hat{f}(x_0)] - \hat{f}(x_0))^2]\\
+\end{align*}
+Now we know that,\\
+$Bias[\hat{f}(x_0)] = \mathbb{E}[\hat{f}(x_0)] - f$\\
+$Var[\hat{f}(x_0)] = \mathbb{E}[\hat{f}(x_0)^2] - \mathbb{E}[\hat{f}(x_0)]^2$\\
+$Var[\hat{f}(x_0)] = \mathbb{E}\left[ \mathbb{E}[\hat{f}(x_0)] - \hat{f}(x_0) \right]$
+\\~\\
+Using these, we have
+\begin{align}   
+    \colorboxed{red}{ \mathbb{E}\left[(y_0 - \hat{f}(x_0))\right]^2 = (f(x_0)-\mathbb{E}[\hat{f}(x_0)] )^2 + \mathbb{E}[\epsilon^2]  + \mathbb{E}[(\mathbb{E}[\hat{f}(x_0)] - \hat{f}(x_0))^2]}\\
+    \colorboxed{red}{\mathbb{E}\left[(y_0 - \hat{f}(x_0))\right]^2 = Bias[\hat{f}(x_0)]^2 + Var[\epsilon] + Var[\hat{f}(x_0)]}
+\end{align}
+\\~\\
+\textbf{Q.} Explain in your own words irreducible and reducible error as well as their difference.
+\\~\\
+\textbf{Solution}\\
+Irreducible error is the noise in the function that describes the given data points. We call it irreducible because it is independent of any quantity and thus cannot be minimized. While, the reducible error is $E[f - \hat{f}]^2$. It is a squared error between the true value and the estimated value of $f$. We call it reducible error because the estimated function $\hat{f}$ can be reformed to minimize the gap between true and estimated values.
+\bibliographystyle{plainnat}
+\bibliography{references}
+\end{document}
