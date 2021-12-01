@@ -144,7 +144,7 @@ k_fold_cv = function(prostate.train, prostate.test, k){
   
   for (i in 1:k){
     glm.fit = glm(lpsa~.,data=prostate.train)
-    cv.error.k[i] = cv.glm(prostate.test, glm.fit)$delta[1]
+    cv.error.k[i] = cv.glm(prostate.test, glm.fit, K =k)$delta[1]
   }
   end.time <- Sys.time()
   time.taken <- end.time - start.time

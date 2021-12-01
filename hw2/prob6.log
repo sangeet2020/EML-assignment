@@ -1,0 +1,51 @@
+
+############ PART 1 ############
+Dimension of dataset:  4509 257 
+Dimension of train df:  3340 257 
+Dimension of test df:  1169 257 
+
+############ PART 2 (LDA) ############
+Train error:  0.05598802 
+Test error:  0.08041061 
+
+############ PART 3 (LDA: only two phonemes) ############
+Dimension of train df:  1278 257 
+Dimension of test df:  439 257 
+Train error:  0.1064163 
+Test error:  0.214123 
+
+############ PART 4.1 (QDA) ############
+Train error:  0 
+Test error:  0.1582549 
+
+############ PART 4.2 (QDA: only two phonemes) ############
+Train error:  0 
+Test error:  0.3394077 
+
+############ PART 5.1 Confusion Matrix: LDA  ############
+               Actual
+Train_predicted  aa  ao
+             aa 439  56
+             ao  80 703
+              Actual
+Test_predicted  aa  ao
+            aa 121  39
+            ao  55 224
+
+############ PART 5.1 Confusion Matrix: QDA  ############
+               Actual
+Train_predicted  aa  ao
+             aa 519   0
+             ao   0 759
+              Actual
+Test_predicted  aa  ao
+            aa  29   2
+            ao 147 261
+
+############ PART 6 ############
+LOOCV test error:  2.265858 
+LOOCV runtime:  0.05578613 s
+5-fold CV test error:  2.345868 2.719536 2.269815 2.078253 2.287623 
+5-fold CV runtime:  0.04688692 s
+10-fold CV test error:  2.247126 2.262782 2.407814 2.18399 2.753017 2.274078 2.218226 2.224365 2.340089 2.194616 
+10-fold CV runtime:  0.2130911 s
