@@ -23,29 +23,32 @@ Train error:  0
 Test error:  0.3394077 
 
 ############ PART 5.1 Confusion Matrix: LDA  ############
-               Actual
-Train_predicted  aa  ao
-             aa 439  56
-             ao  80 703
-              Actual
-Test_predicted  aa  ao
-            aa 121  39
-            ao  55 224
+      Train_predicted
+Actual  aa  ao
+    aa 439  80
+    ao  56 703
+      Test_predicted
+Actual  aa  ao
+    aa 121  55
+    ao  39 224
 
 ############ PART 5.1 Confusion Matrix: QDA  ############
-               Actual
-Train_predicted  aa  ao
-             aa 519   0
-             ao   0 759
-              Actual
-Test_predicted  aa  ao
-            aa  29   2
-            ao 147 261
+      Train_predicted
+Actual  aa  ao
+    aa 519   0
+    ao   0 759
+      Test_predicted
+Actual  aa  ao
+    aa  29 147
+    ao   2 261
 
 ############ PART 6 ############
-LOOCV test error:  2.265858 
-LOOCV runtime:  0.05578613 s
-5-fold CV test error:  2.345868 2.719536 2.269815 2.078253 2.287623 
-5-fold CV runtime:  0.04688692 s
-10-fold CV test error:  2.247126 2.262782 2.407814 2.18399 2.753017 2.274078 2.218226 2.224365 2.340089 2.194616 
-10-fold CV runtime:  0.2130911 s
+LOOCV estimated test error:  0.6570311 
+LOOCV actual test error:  2.265858 
+LOOCV runtime:  0.1680677 s
+5-fold CV estimated test error:  0.6617076 
+5-fold CV actual test error:  2.012905 
+5-fold CV runtime:  0.01989865 s
+10-fold CV estimated test error:  0.6569482 
+10-fold CV actual test error:  2.494486 
+10-fold CV runtime:  0.03339696 s
